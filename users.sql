@@ -13,3 +13,10 @@ INSERT INTO `users` (`username`, `password`, `email`, `id`) VALUES
 ('alexander', 'lukas', 'alexander.lukas@skola.taby.se', 1)
 ('john', 'smith', 'john.smith@skola.taby.se', 2),
 ('jim', 'davis', 'jim.davis@skola.taby.se', 3);
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `users`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
