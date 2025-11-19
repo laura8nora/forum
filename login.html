@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
+    <h2>Welcome</h2>
+    <p>User: {{user['username']}}.</p>
+    <p><a href="/annansida">Fortsätt</a></p>
+    <p><a href="/logout">Log out</a></p>
 
 {% endblock %}
