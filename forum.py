@@ -33,5 +33,44 @@ def index():
 
 @app.route('/login')
 def login():
+    def login():
+    if session:
+        return render_template('login.html', user=session['user'])
+    else:
+        return render_template('error.html')
 
+@app.route('/otherwebsie')
+def otherwebsie():
+    if session:
+        db = get_connection()
+        mycursor = db.cursor()
+        mycursor.execute("SELECT * FROM posts ORDER BY time DESC")
+        posts = mycursor.fetchall()
+        return render_template('otherwebsie.html', user=session['user'], posts=posts)
+    else:
+        return render_template('error.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
+@app.route('/append', methods=['POST'])
+def append():
+    if not session:
+        return render_template('error.html')
+    author = session['user']['username']
+    text = request.form.get('line', '')
+    now = datetime.datetime.now()
+    db = get_connection()
+    mycursor = db.cursor()
+    sql = "INSERT INTO posts (author, text, time) VALUES (%s, %s, %s)"
+    val = (author, text, now)
+    mycursor.execute(sql, val)
+    db.commit()
+    return redirect('/otherwebsie')
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
     
