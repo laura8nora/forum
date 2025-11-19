@@ -39,14 +39,14 @@ def login():
     else:
         return render_template('error.html')
 
-@app.route('/otherwebsie')
-def otherwebsie():
+@app.route('/otherwebsite')
+def otherwebsite():
     if session:
         db = get_connection()
         mycursor = db.cursor()
         mycursor.execute("SELECT * FROM posts ORDER BY time DESC")
         posts = mycursor.fetchall()
-        return render_template('otherwebsie.html', user=session['user'], posts=posts)
+        return render_template('otherwebsite.html', user=session['user'], posts=posts)
     else:
         return render_template('error.html')
 
@@ -69,7 +69,7 @@ def append():
     val = (author, text, now)
     mycursor.execute(sql, val)
     db.commit()
-    return redirect('/otherwebsie')
+    return redirect('/otherwebsite')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
